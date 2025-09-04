@@ -1,10 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
-
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
+import { Product } from 'src/product/entities/product-entity';
 @Entity()
 export class Client {
   @PrimaryGeneratedColumn()
   id: number;
-
   @Column()
   name: string;
 
@@ -19,4 +18,7 @@ export class Client {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToMany(() => Product, (product) => product.client)
+  product: Product[];
 }
