@@ -22,6 +22,8 @@ import { Product } from './product/entities/product-entity';
   ProductModule,
   
 ],
+
 })
+
 export class AppModule {}
 
