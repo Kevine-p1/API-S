@@ -21,6 +21,7 @@ export class ClientController {
   @ApiParam({ name: 'id', type: Number })
   @ApiResponse({ status: 200, description: 'Client found.' })
   @ApiResponse({ status: 404, description: 'Client not found.' })
+  
   findOne(@Param('id') id: string) {
     return this.svc.findOne(+id);
   }

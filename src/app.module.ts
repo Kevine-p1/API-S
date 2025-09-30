@@ -4,6 +4,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Client } from './client/entities/client.entity';
 import { ProductModule } from './product/product.module';
 import { Product } from './product/entities/product-entity';
+import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
+import { User } from './user/entities/users-entity';
 
 @Module({
   imports: [
@@ -14,12 +17,14 @@ import { Product } from './product/entities/product-entity';
     username: 'postgres',
     password: '0791566334',
     database: 'client_crud',
-    entities: [Client, Product],
+    entities: [Client, Product,User],
     autoLoadEntities: true,
     synchronize: true,
   }),
   ClientModule,
   ProductModule,
+  UserModule,
+  AuthModule,
   
 ],
 
