@@ -4,6 +4,8 @@ import { ProductService } from './product.service';
 import { Product } from './entities/product-entity';
 import { CreateProductDto } from './DTO/create-product.dto';
 import { UpdateProductDto } from './DTO/update-product.dto';
+import { Query } from '@nestjs/common/decorators/http/route-params.decorator';
+import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 
 @ApiTags('products')
 @Controller('product')
@@ -13,8 +15,8 @@ export class ProductController {
   @Get()
   @ApiOperation({ summary: 'Get all products' })
   @ApiResponse({ status: 200, description: 'List of products', type: [Product] })
-  findAll() {
-    return this.productService.findAll();
+  findAll(@Query() paginationQuery: PaginationQueryDto) {
+    return this.productService.findAll(paginationQuery);
   }
 
   @Post()
