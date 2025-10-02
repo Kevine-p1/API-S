@@ -34,10 +34,16 @@ async findAll(paginationQuery: PaginationQueryDto) {
 
 
   async findOne(id: number) {
-    const client = await this.clientRepository.findOne({ where: { id } });
-    if (!client) throw new NotFoundException(`Client ${id} not found`);
-    return client;
+  const client = await this.clientRepository.findOne({
+    where: { id },
+    relations: ['products'], 
+  });
+  if (!client) {
+    throw new NotFoundException(`Client with ID ${id} not found`);
   }
+
+  return client;
+}
 
   async update(id: number, updateClientDto: UpdateClientDto) {
     await this.clientRepository.update(id, updateClientDto);
