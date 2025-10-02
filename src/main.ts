@@ -6,12 +6,12 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // Enable validation globally
+  
   app.useGlobalPipes(
     new ValidationPipe({
-      whitelist: true,              // strips out unknown fields
-      forbidNonWhitelisted: true,   // errors if unknown field is sent
-      transform: true,              // converts types (e.g., "123" -> number)
+      whitelist: true,               
+      forbidNonWhitelisted: true,    
+      transform: true,              
       exceptionFactory: (errors) => {
         const messages = errors.map((err) => {
         if (err.constraints) {
@@ -27,7 +27,7 @@ async function bootstrap() {
     }),
   );
 
-  // Keep Swagger and interceptors
+  
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
   const config = new DocumentBuilder()
     .setTitle('Store Management API')

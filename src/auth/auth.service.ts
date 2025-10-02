@@ -1,11 +1,10 @@
-// auth.service.ts
 import { Injectable, ConflictException, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { UserService } from '../user/user.service';
 import { RegisterDto } from './dto/register.dto';
-import { LoginDto } from './dto/login.dto'; // if you have a LoginDto
-import { ChangePasswordDto } from './dto/change-password.dto'; // create this DTO
+import { LoginDto } from './dto/login.dto'; 
+import { ChangePasswordDto } from './dto/change-password.dto';  
 import { UserRole } from '../common/enums/user-role.enum';
 import { User } from '../user/entities/user.entity';
 
@@ -16,7 +15,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  // REGISTER
+ 
   async register(dto: RegisterDto): Promise<{ access_token: string; expiresIn: string; user: User }> {
     const createUserDto = {
       name: dto.fullName ?? '',
@@ -36,7 +35,7 @@ export class AuthService {
     return { access_token: token, expiresIn: '1h', user };
   }
 
-  // LOGIN
+   
   async login(dto: LoginDto): Promise<{ access_token: string; expiresIn: string; user: User }> {
     const user = await this.userService.findByEmail(dto.email);
     if (!user) throw new UnauthorizedException('Invalid credentials');
@@ -50,7 +49,7 @@ export class AuthService {
     return { access_token: token, expiresIn: '1h', user };
   }
 
-  // CHANGE PASSWORD
+   
   async changePassword(userId: string, dto: ChangePasswordDto): Promise<User> {
     const user = await this.userService.findOne(userId);
     const passwordMatch = await bcrypt.compare(dto.oldPassword, user.password);

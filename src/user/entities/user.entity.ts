@@ -14,13 +14,13 @@ export class User {
   name: string;
 
   @Column()
-  @Exclude() // prevents password from leaking in API responses
+  @Exclude()  
   password: string;
 
   @Column({
     type: 'enum',
     enum: UserRole,
-    default: UserRole.CLIENT, // default role is CLIENT
+    default: UserRole.CLIENT,  
   })
   role: UserRole;
 }

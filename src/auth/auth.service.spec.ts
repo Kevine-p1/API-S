@@ -11,16 +11,16 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  // Register new user
+  
   async register(dto: CreateUserDto) {
-    // Calls userService.create which already hashes password
+     
     const user = await this.userService.create(dto);
-    // Remove password before returning
+    
     const { password, ...result } = user;
     return result;
   }
 
-  // Login
+   
   async login(email: string, password: string) {
     const user = await this.userService.findByEmail(email);
     if (!user) throw new UnauthorizedException('Invalid email or password');
@@ -32,7 +32,7 @@ export class AuthService {
     return { access_token: this.jwtService.sign(payload) };
   }
 
-  // Change password
+ 
   async changePassword(userId: string, oldPassword: string, newPassword: string) {
     const user = await this.userService.findOne(userId);
 
